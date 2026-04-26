@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Puneways - Smart Pune Explorer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+
+/* RESET & GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5efdf;
+  font-family: 'Inter', sans-serif;
+  color: #2c2a24;
+}
+
+/* NAVBAR */
+header {
+  background: #ffffffdd;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2dcd0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 70px;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo {
+  height: 80px;
+}
+
+.logo-text {
+  font-family: 'Cormorant Garamond';
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #3b2314;
+  font-weight: 700;
+}
+
+/* SEARCH */
+.search-box {
+  position: relative;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #b97f44;
+}
+
+.search-wrapper input {
+  width: 380px;
+  padding: 10px 18px 10px 38px;
+  border-radius: 40px;
+  border: 1px solid #d2b48c;
+  background: #f5e6d3;
+  outline: none;
+  color: #3b2314;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.search-wrapper input:focus {
+  border-color: #3b2314;
+  box-shadow: 0 0 10px rgba(59,35,20,0.2);
+}
+
+.suggestions {
+  position: absolute;
+  top: 48px;
+  width: 100%;
+  background: #f5efdf;
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  display: none;
+  overflow: hidden;
+  z-index: 100;
+  border: 1px solid #e0cfb5;
+}
+
+.suggestions div {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.15s;
+}
+
+.suggestions div:hover {
+  background: #e6c79c;
+  color: #2c241a;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #4a3b28;
+  font-weight: 500;
+  transition: 0.2s;
+  font-size: 15px;
+}
+
+.nav-links a:hover {
+  color: #b97f44;
+}
+
+/* HERO SECTION - enhanced */
+.hero {
+  text-align: center;
+  padding: 110px 20px;
+  background: linear-gradient(rgba(30, 18, 8, 0.7), rgba(30, 18, 8, 0.65)), url("pune-bg.jpeg");
+  background-size: cover;
+  background-position: center 30%;
+  color: #f5efdf;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 68px;
+  letter-spacing: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+}
+
+.tagline {
+  font-style: italic;
+  margin-top: 12px;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.hero-desc {
+  max-width: 600px;
+  margin: 20px auto 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.explore-btn {
+  margin-top: 35px;
+  padding: 14px 38px;
+  border-radius: 50px;
+  border: none;
+  background: #e6c79c;
+  color: #3b2314;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
+
+.explore-btn:hover {
+  background: #d4b07c;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-size: 38px;
+  margin: 60px 0 15px;
+  color: #3b2314;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+}
+
+.section-line {
+  width: 80px;
+  height: 3px;
+  background: #c8a97e;
+  margin: 0 auto 40px;
+  border-radius: 4px;
+}
+
+/* TRENDING SECTION - REFINED */
+.trending-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.trend-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.trend-card {
+  flex: 1;
+  min-width: 260px;
+  background: #fffaf2;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  border: 1px solid #f0e3d2;
+}
+
+.trend-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 35px rgba(59, 35, 20, 0.15);
+}
+
+.trend-img {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.trend-icon {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  color: white;
+}
+
+.trend-card p {
+  padding: 18px;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: #3b2314;
+}
+
+/* slideshow + grid layout */
+.slideshow-section {
+  max-width: 1300px;
+  margin: 20px auto 60px;
+  padding: 0 30px;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.slideshow-container {
+  flex: 1.2;
+  position: relative;
+  height: 380px;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  padding: 12px 20px;
+  border-radius: 40px;
+  color: white;
+  font-weight: 500;
+  z-index: 2;
+}
+
+.right-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.mini-card {
+  background: #fffaf2;
+  border-radius: 24px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: 0.2s;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.04);
+  border: 1px solid #e8ddce;
+}
+
+.mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+}
+
+.mini-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.mini-card p {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  color: #3b2314;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+}
+
+/* WHY PUNEWAYS - FRESH */
+.why-section {
+  text-align: center;
+  padding: 50px 30px 70px;
+  background: #f5efdf;
+}
+
+.why-container {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-card {
+  max-width: 280px;
+  background: #fffaf2;
+  padding: 32px 24px;
+  border-radius: 40px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+  transition: 0.25s;
+  border: 1px solid #ede0cf;
+}
+
+.why-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4b48c;
+}
+
+.why-card .icon {
+  font-size: 52px;
+  margin-bottom: 20px;
+  color: #c8a97e;
+}
+
+.why-card h2 {
+  font-family: 'Cormorant Garamond';
+  font-size: 26px;
+  margin-bottom: 12px;
+  color: #3b2314;
+}
+
+.why-card p {
+  font-size: 15px;
+  color: #5e5240;
+  line-height: 1.5;
+}
+
+/* CALL TO ACTION */
+.cta-banner {
+  background: linear-gradient(135deg, #e9dfce 0%, #dccaa8 100%);
+  margin: 20px 30px 50px;
+  border-radius: 60px;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+.cta-banner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 38px;
+  color: #3b2314;
+}
+
+.cta-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  padding: 12px 32px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+  background: #3b2314;
+  color: #f5efdf;
+}
+
+.cta-btn-outline {
+  background: transparent;
+  border: 2px solid #3b2314;
+  color: #3b2314;
+}
+
+.cta-btn:hover {
+  background: #5e3a24;
+  transform: scale(1.02);
+}
+
+.cta-btn-outline:hover {
+  background: #3b2314;
+  color: #f5efdf;
+}
+
+/* FOOTER (identical to original design) */
+.footer {
+  margin-top: 40px;
+  background: url("pune-bg.jpeg") center/cover no-repeat;
+  color: #f5efdf;
+  position: relative;
+}
+
+.footer-overlay {
+  background: rgba(40, 20, 10, 0.88);
+  padding: 50px 40px 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-left h2 {
+  font-family: 'Cormorant Garamond';
+  font-size: 34px;
+}
+
+.footer-left h3 {
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+.socials a {
+  display: inline-block;
+  margin-right: 14px;
+  font-size: 18px;
+  color: #f5efdf;
+  transition: 0.3s;
+}
+
+.socials a:hover {
+  color: #e6c79c;
+  transform: scale(1.1);
+}
+
+.footer-email {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #e6c79c;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #f5efdf;
+  transition: 0.2s;
+}
+
+.footer-links a:hover {
+  color: #e6c79c;
+  padding-left: 4px;
+}
+
+.qr-box {
+  background: #f5e6d3;
+  padding: 10px;
+  border-radius: 16px;
+  width: 100px;
+}
+
+.qr-box img {
+  width: 100%;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin-top: 35px;
+  padding-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+@media (max-width: 850px) {
+  .navbar {
+    padding: 10px 20px;
+    gap: 14px;
+  }
+  .search-wrapper input {
+    width: 250px;
+  }
+  .hero h1 {
+    font-size: 44px;
+  }
+  .slideshow-section {
+    flex-direction: column;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" class="nav-logo" alt="Puneways Logo">
+      <span class="logo-text"><b>PUNEWAYS</b></span>
+    </div>
+
+    <div class="search-box">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search mood or weather..." onfocus="showSuggestions()" onkeyup="filterSuggestions()">
+      </div>
+      <div class="suggestions" id="suggestionsBox">
+        <div onclick="selectOption('romantic')">🌇 Romantic spots</div>
+        <div onclick="selectOption('chill')">☕ Chill & cozy</div>
+        <div onclick="selectOption('rainy')">🌧️ Rainy day</div>
+        <div onclick="selectOption('adventure')">⛰️ Adventure & trek</div>
+        <div onclick="selectOption('happy')">🎉 Happy & fun</div>
+        <div onclick="selectOption('peaceful')">🌿 Peaceful / Calm</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html" style="color:#b97f44; font-weight:600;">Home</a>
+      <a href="How_It_Works.html">How It Works</a>
+      <a href="mood_page.html">Moods</a>
+      <a href="weather_page.html">Weather</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <h1>PUNEWAYS</h1>
+  <p class="tagline">Curated paths of Pune</p>
+  <p class="hero-desc">Discover places that match your mood & the weather outside. Say goodbye to confusion, hello to meaningful outings.</p>
+  <button class="explore-btn" onclick="scrollToMoods()">✨ Explore Now ✨</button>
+</section>
+
+<!-- TRENDING PLACES + SLIDESHOW (dynamic blend) -->
+<div class="slideshow-section">
+  <div class="slideshow-container">
+    <img src="https://tse1.mm.bing.net/th/id/OIP.flG-uSegL8Enu6d8n9BmVAHaEo?rs=1&pid=ImgDetMain&o=7&rm=3" class="slide active">
+    <img src="https://lh7-us.googleusercontent.com/odFl43vhawgJULbggCYgvig-tH3i8oCNoCJJDEuU39tFaLmvE3t0b6nR2Bk5GdEbS0ghH90LnpJlow-kalShgDmCA0evzUpd7IBRHOqLs2CqIISTjlDiLxKza3h_fZR8Nhf8Ibu27zfNchd_l8DmHr8" class="slide">
+    <img src="https://www.indiasinvitation.com/wp-content/uploads/2017/08/Top-8-Beautiful-Tourist-Attractions-in-Pune.jpg" class="slide">
+    <div class="slide-caption"><i class="fas fa-camera"></i> Pune's Heritage & Nature</div>
+  </div>
+
+  <div class="right-grid">
+    <a href="https://www.google.com/search?q=Sinhagad+Fort+Pune" target="_blank" class="mini-card">
+      <img src="sinhagad.jpeg" alt="Sinhagad">
+      <p>🏔️ Sinhagad Fort</p>
+    </a>
+    <a href="https://www.google.com/search?q=FC+Road+Pune+nightlife" target="_blank" class="mini-card">
+      <img src="fcroad.jpeg" alt="FC Road">
+      <p>🎸 FC Road Nights</p>
+    </a>
+    <a href="https://www.google.com/search?q=Khadakwasla+Lake+sunset" target="_blank" class="mini-card">
+      <img src="khadakwasla.jpeg" alt="Khadakwasla">
+      <p>🌅 Khadakwasla Sunset</p>
+    </a>
+    <a href="https://en.wikipedia.org/wiki/Aga_Khan_Palace" target="_blank" class="mini-card">
+      <img src="aga_khan_palace.png" alt="Aga Khan Palace">
+      <p>🏛️ Aga Khan Palace</p>
+    </a>
+  </div>
+</div>
+
+<!-- Trending in Pune section refined -->
+<div class="trending-wrapper">
+  <h2 class="section-title">🔥 Trending in Pune</h2>
+  <div class="section-line"></div>
+  <div class="trend-row">
+    <a href="#" class="trend-card">
+      <div class="trend-img" style="background-image: url('https://tse2.mm.bing.net/th/id/OIP.UDCV0HC01LbcMkZzZ7UISQHaE8?rs=1&pid=ImgDetMain');"><div class="trend-icon"><i class="fas fa-mug-hot"></i> Trending</div></div>
+      <p>🌿 Peaceful Lakeside Cafes</p>
+    </a>
+    <a href="#" class="trend-card">
+      <div class="trend-img" style="background-image: url('https://images.pexels.com/photos/27802554/pexels-photo-27802554/free-photo-of-panoramic-view-of-mountains-from-lion-point.jpeg?auto=compress&cs=tinysrgb&w=600');"><div class="trend-icon"><i class="fas fa-hiking"></i> Adventure</div></div>
+      <p>⛰️ Monsoon Treks</p>
+    </a>
+    <a href="#" class="trend-card">
+      <div class="trend-img" style="background-image: url('https://images.pexels.com/photos/3150702/pexels-photo-3150702.jpeg?auto=compress&cs=tinysrgb&w=600');"><div class="trend-icon"><i class="fas fa-heart"></i> Romantic</div></div>
+      <p>❤️ Scenic Sunset Points</p>
+    </a>
+    <a href="#" class="trend-card">
+      <div class="trend-img" style="background-image: url('https://tse4.mm.bing.net/th/id/OIP.tCciYkH2gQfhjYQlMqOjYwHaE8?rs=1&pid=ImgDetMain');"><div class="trend-icon"><i class="fas fa-utensils"></i> Foodie</div></div>
+      <p>🍛 Iconic Puneri Misal</p>
+    </a>
+  </div>
+</div>
+
+<!-- WHY PUNEWAYS section enhanced -->
+<section class="why-section">
+  <h2 class="section-title">Why Puneways?</h2>
+  <div class="section-line"></div>
+  <div class="why-container">
+    <div class="why-card">
+      <div class="icon">😌</div>
+      <h2>Mood-first</h2>
+      <p>Calm, adventurous, romantic, foodie — every emotion finds its perfect Pune corner.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">🌦️</div>
+      <h2>Weather-aware</h2>
+      <p>Sunny? Rainy? Pleasant breeze? Our recommendations adapt instantly to the forecast.</p>
+    </div>
+    <div class="why-card">
+      <div class="icon">🍴</div>
+      <h2>Food + Chill</h2>
+      <p>Nearby cafes, street food & cozy hangouts are always part of your plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CALL TO ACTION banner -->
+<div class="cta-banner">
+  <h2>Ready to explore Pune like never before?</h2>
+  <div class="cta-buttons">
+    <a href="mood_page.html" class="cta-btn">🎭 Choose your mood</a>
+    <a href="weather_page.html" class="cta-btn cta-btn-outline">🌤️ Check weather picks</a>
+  </div>
+</div>
+
+<!-- FOOTER (exactly matching original spec) -->
+<footer class="footer">
+  <div class="footer-overlay">
+    <div class="footer-content">
+      <div class="footer-left">
+        <h2>PUNEWAYS</h2>
+        <p>Curated paths of Pune</p>
+        <h3>Follow us</h3>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p class="footer-desc" style="margin-top: 12px;">Discover Pune through moods, weather & vibes.</p>
+        <p class="footer-email">📧 jadhavprachi552@gmail.com</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="How_It_Works.html">How It Works</a>
+        <a href="mood_page.html">Moods</a>
+        <a href="weather_page.html">Weather</a>
+        <a href="#">Trending Places</a>
+        <a href="#">About Us</a>
+      </div>
+      <div class="footer-right">
+        <h3>Explore More</h3>
+        <p>Scan to explore Pune vibes</p>
+        <div class="qr-box">
+          <img src="logo.png" alt="QR code">
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Puneways • Made with ❤️ in Pune</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Slideshow logic
+  let slides = document.querySelectorAll(".slide");
+  let currentIndex = 0;
+  if(slides.length) {
+    setInterval(() => {
+      slides[currentIndex].classList.remove("active");
+      currentIndex = (currentIndex + 1) % slides.length;
+      slides[currentIndex].classList.add("active");
+    }, 2800);
+  }
+
+  // Search dropdown same as original
+  function showSuggestions() {
+    document.getElementById("suggestionsBox").style.display = "block";
+  }
+  function filterSuggestions() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let options = document.querySelectorAll("#suggestionsBox div");
+    options.forEach(opt => {
+      let text = opt.innerText.toLowerCase();
+      opt.style.display = text.includes(input) ? "block" : "none";
+    });
+  }
+  function selectOption(value) {
+    document.getElementById("searchInput").value = value;
+    document.getElementById("suggestionsBox").style.display = "none";
+    if(value.includes("romantic") || value.includes("chill") || value.includes("adventure") || value.includes("peaceful") || value.includes("happy")) {
+      window.location.href = "mood_page.html";
+    } else if(value.includes("rainy") || value.includes("sunny") || value.includes("weather")) {
+      window.location.href = "weather_page.html";
+    } else {
+      window.open("https://www.google.com/search?q=" + encodeURIComponent(value + " places in Pune"), "_blank");
+    }
+  }
+  document.addEventListener("click", function(e) {
+    let searchBox = document.querySelector(".search-box");
+    if (searchBox && !searchBox.contains(e.target)) {
+      document.getElementById("suggestionsBox").style.display = "none";
+    }
+  });
+
+  function scrollToMoods() {
+    const moodSection = document.querySelector(".trending-wrapper");
+    if(moodSection) {
+      moodSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.href = "mood_page.html";
+    }
+  }
+  window.addEventListener('load', () => {
+    if(document.getElementById("suggestionsBox")) document.getElementById("suggestionsBox").style.display = "none";
+  });
+</script>
+</body>
+</html>

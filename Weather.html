@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puneways - Weather Based Suggestions | Explore Pune by Forecast</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    /* RESET & GLOBAL - same as main site */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5efdf;
+      font-family: 'Inter', sans-serif;
+      color: #2c2a24;
+    }
+
+    /* NAVBAR */
+    header {
+      background: #ffffffdd;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e2dcd0;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 60px;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      height: 80px;
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond';
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: #3b2314;
+    }
+
+    /* SEARCH */
+    .search-box {
+      position: relative;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #e6cbae;
+    }
+
+    .search-wrapper input {
+      width: 400px;
+      padding: 10px 18px 10px 38px;
+      border-radius: 30px;
+      border: 1px solid #d2b48c;
+      background: #f5e6d3;
+      outline: none;
+      color: #3b2314;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .search-wrapper input:focus {
+      border-color: #3b2314;
+      box-shadow: 0 0 10px rgba(59,35,20,0.25);
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 45px;
+      width: 100%;
+      background: #f5e6d3;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      display: none;
+      overflow: hidden;
+      z-index: 100;
+    }
+
+    .suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .suggestions div:hover {
+      background: #e6c79c;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4a3b28;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #b97f44;
+    }
+
+    /* WEATHER HERO */
+    .weather-hero {
+      background: linear-gradient(rgba(40,20,10,0.75), rgba(40,20,10,0.65)), url("pune-bg.jpeg");
+      background-size: cover;
+      background-position: center;
+      padding: 70px 20px;
+      text-align: center;
+      color: #f5efdf;
+    }
+
+    .weather-hero h1 {
+      font-size: 56px;
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 2px;
+    }
+
+    .weather-hero p {
+      font-size: 18px;
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    /* Weather Toggle Cards */
+    .weather-selector {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin: 60px 30px 40px;
+    }
+
+    .weather-option {
+      background: #e9dfce;
+      border-radius: 28px;
+      padding: 18px 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 2px solid transparent;
+      min-width: 140px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+    }
+
+    .weather-option i {
+      font-size: 42px;
+      display: block;
+      margin-bottom: 12px;
+      color: #8b6946;
+    }
+
+    .weather-option h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      margin-bottom: 6px;
+      color: #3b2314;
+    }
+
+    .weather-option p {
+      font-size: 13px;
+      color: #695b46;
+    }
+
+    .weather-option.active {
+      border-color: #b97f44;
+      background: #f5efdf;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(59,35,20,0.15);
+    }
+
+    .weather-option:hover {
+      transform: translateY(-3px);
+      background: #e2d4c2;
+    }
+
+    /* weather info banner */
+    .weather-insight {
+      background: #e6d8c8;
+      border-radius: 48px;
+      max-width: 850px;
+      margin: 20px auto 40px;
+      padding: 20px 35px;
+      text-align: center;
+      font-size: 15px;
+      color: #3b2e1f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .weather-insight i {
+      font-size: 28px;
+      color: #b97f44;
+    }
+
+    /* places grid */
+    .places-grid {
+      max-width: 1300px;
+      margin: 20px auto 70px;
+      padding: 0 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 35px;
+    }
+
+    .place-card {
+      background: #fffaf2;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+      transition: 0.3s ease;
+      border: 1px solid #e8ddce;
+    }
+
+    .place-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px rgba(59,35,20,0.12);
+    }
+
+    .place-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .weather-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 16px;
+      background: #2c2a24cc;
+      backdrop-filter: blur(5px);
+      padding: 5px 14px;
+      border-radius: 40px;
+      font-size: 13px;
+      color: #f5efdf;
+      font-weight: 500;
+    }
+
+    .place-info {
+      padding: 22px 20px 24px;
+    }
+
+    .place-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: #3b2314;
+    }
+
+    .place-desc {
+      font-size: 14px;
+      color: #5e5240;
+      line-height: 1.45;
+      margin: 8px 0;
+    }
+
+    .mood-match {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #e6d8c8;
+      border-radius: 30px;
+      padding: 4px 14px;
+      font-size: 12px;
+      margin: 12px 0 10px;
+      font-weight: 500;
+    }
+
+    .food-suggestion {
+      margin-top: 14px;
+      border-top: 1px solid #eedfcb;
+      padding-top: 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #9b7b56;
+    }
+
+    .explore-link {
+      display: inline-block;
+      margin-top: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      color: #b97f44;
+      font-size: 14px;
+    }
+
+    /* empty state */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      background: #f5efdf;
+      border-radius: 48px;
+      margin: 20px;
+    }
+
+    /* FOOTER (same as homepage) */
+    .footer {
+      margin-top: 60px;
+      background: url("pune-bg.jpeg") center/cover no-repeat;
+      color: #f5efdf;
+      position: relative;
+    }
+
+    .footer-overlay {
+      background: rgba(40, 20, 10, 0.85);
+      padding: 50px 40px 20px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .footer-left h2 {
+      font-family: 'Cormorant Garamond';
+      font-size: 32px;
+    }
+
+    .footer-left h3 {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .socials a {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 18px;
+      color: #f5efdf;
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      color: #e6c79c;
+    }
+
+    .footer-email {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #e6c79c;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #f5efdf;
+    }
+
+    .footer-links a:hover {
+      color: #e6c79c;
+    }
+
+    .qr-box {
+      background: #f5e6d3;
+      padding: 10px;
+      border-radius: 10px;
+      width: 100px;
+    }
+
+    .qr-box img {
+      width: 100%;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.2);
+      margin-top: 30px;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    @media (max-width: 750px) {
+      .navbar {
+        padding: 10px 20px;
+        gap: 12px;
+      }
+      .search-wrapper input {
+        width: 240px;
+      }
+      .weather-option {
+        padding: 12px 18px;
+        min-width: 110px;
+      }
+      .weather-option i {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="navbar">
+    <div class="logo-container">
+      <img src="logo.png" class="nav-logo" alt="Puneways logo">
+      <span class="logo-text"><b>PUNEWAYS</b></span>
+    </div>
+
+    <!-- SEARCH FUNCTIONALITY -->
+    <div class="search-box">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search mood or weather..." onfocus="showSuggestions()" onkeyup="filterSuggestions()">
+      </div>
+      <div class="suggestions" id="suggestionsBox">
+        <div onclick="selectOption('romantic')">🌇 Romantic</div>
+        <div onclick="selectOption('chill')">☕ Chill</div>
+        <div onclick="selectOption('rainy')">🌧️ Rainy / Monsoon</div>
+        <div onclick="selectOption('adventure')">⛰️ Adventure</div>
+        <div onclick="selectOption('sunny')">☀️ Sunny day</div>
+        <div onclick="selectOption('pleasant')">🌸 Pleasant weather</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="How_It_Works.html">How It Works</a>
+      <a href="Mood.html">Moods</a>
+      <a href="Weather.html" style="color:#b97f44; font-weight:600;">Weather</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</header>
+
+<!-- Weather hero -->
+<section class="weather-hero">
+  <h1>Weather-Based Suggestions</h1>
+  <p>Because the perfect Pune outing depends on the clouds, sun, or rain ☀️🌧️🍃</p>
+</section>
+
+<!-- Weather condition selector -->
+<div class="weather-selector">
+  <div class="weather-option" data-weather="sunny">
+    <i class="fas fa-sun"></i>
+    <h3>☀️ Sunny</h3>
+    <p>Hot & bright — escape to shaded gardens, water spots & indoors</p>
+  </div>
+  <div class="weather-option" data-weather="rainy">
+    <i class="fas fa-cloud-rain"></i>
+    <h3>🌧️ Rainy / Monsoon</h3>
+    <p>Cozy indoor cafes, forts with mist, and chai spots</p>
+  </div>
+  <div class="weather-option" data-weather="pleasant">
+    <i class="fas fa-cloud-sun"></i>
+    <h3>🌸 Pleasant / Breezy</h3>
+    <p>Best for open-air experiences, sunset points & treks</p>
+  </div>
+</div>
+
+<!-- Dynamic weather insight banner -->
+<div id="weatherInsightBanner" class="weather-insight">
+  <i class="fas fa-lightbulb"></i>
+  <span id="insightText">Select a weather condition to get curated Pune recommendations!</span>
+</div>
+
+<!-- Places grid (dynamic content via JS) -->
+<div id="placesContainer" class="places-grid">
+  <!-- JS will fill dynamic cards based on weather selection -->
+  <div class="empty-state">✨ Tap on Sunny, Rainy or Pleasant to discover weather-matched places ✨</div>
+</div>
+
+<!-- FOOTER same as original -->
+<footer class="footer">
+  <div class="footer-overlay">
+    <div class="footer-content">
+      <div class="footer-left">
+        <h2>PUNEWAYS</h2>
+        <p>Curated paths of Pune</p>
+        <h3>Follow us</h3>
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <p class="footer-desc" style="margin-top: 12px;">Discover Pune through moods, weather & vibes.</p>
+        <p class="footer-email">📧 jadhavprachi552@gmail.com</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="How_It_Works.html">How It Works</a>
+        <a href="mood_page.html">Moods</a>
+        <a href="weather_page.html">Weather</a>
+        <a href="#">Trending Places</a>
+        <a href="#">About Us</a>
+      </div>
+      <div class="footer-right">
+        <h3>Explore More</h3>
+        <p>Scan to explore Pune vibes</p>
+        <div class="qr-box"><img src="logo.png" alt="QR"></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Puneways • Made with ❤️ in Pune</p></div>
+  </div>
+</footer>
+
+<script>
+  // ---------- WEATHER DATABASE: sunny, rainy, pleasant places with mood tags & nearby food ----------
+  const weatherData = {
+    sunny: {
+      title: "☀️ Sunny Day Specials",
+      insight: "Bright sunshine? Head to breezy lakesides, indoor heritage museums, and tree-shaded gardens. Stay cool with refreshing eats!",
+      places: [
+        { name: "🌳 Osho Teerth Gardens", desc: "Lush zen gardens with water bodies & ample shade — perfect escape from heat.", mood: "Calm", food: "Nearby: 'The Art of Living Cafe' with cold coffee & salads", img: "https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "🏛️ Raja Dinkar Kelkar Museum", desc: "Indoor cultural treasure, cool interiors & rare artifacts.", mood: "Curious/Calm", food: "Chilled buttermilk & snacks at 'Vaishali'", img: "https://images.pexels.com/photos/258117/pexels-photo-258117.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "💦 Khadakwasla Dam Backwaters", desc: "Gentle breeze, shaded spots & water views even on hot days.", mood: "Peaceful / Happy", food: "Ice golas, tender coconut water", img: "https://tse1.mm.bing.net/th/id/OIP.qWT9-SMZR8HZr0JbW4U5owHaE8?rs=1&pid=ImgDetMain" },
+        { name: "🏞️ Mulshi Lake & Resort", desc: "Lakefront lounging with cool wind, perfect for sunny afternoons.", mood: "Relaxed", food: "Poolside cafe & lemon slush", img: "https://images.pexels.com/photos/1770809/pexels-photo-1770809.jpeg?auto=compress&cs=tinysrgb&w=600" }
+      ]
+    },
+    rainy: {
+      title: "🌧️ Magical Monsoon Hideouts",
+      insight: "Rainy days call for steaming chai, misty forts, cozy indoor corners, and aromatic cafes. Embrace the pitter-patter!",
+      places: [
+        { name: "☕ Vohuman Cafe", desc: "Classic Irani chai, brun maska with window-side rain views.", mood: "Nostalgic / Cozy", food: "Bun maska & omelette — ultimate rainy comfort", img: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "🏰 Sinhagad Fort in Monsoon", desc: "Misty trek, lush green slopes, and hot bhaji at the top.", mood: "Adventurous & Dreamy", food: "Garlic chutney, corn pakoda, cutting chai", img: "https://tse2.mm.bing.net/th/id/OIP.98iFde8fGzfLeXos85gHXAHaE8?rs=1&pid=ImgDetMain" },
+        { name: "🎨 Raja Dinkar Kelkar Museum", desc: "Rainy afternoons well spent indoors exploring artifacts.", mood: "Cultural / Chill", food: "Nearby: Marz-o-rin's hot chocolate", img: "https://images.pexels.com/photos/208736/pexels-photo-208736.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "🌿 Pavana River View (Lonavla side)", desc: "Misty waterfalls and cool breeze – just 1 hr from Pune.", mood: "Romantic/Adventure", food: "Maggi point, bhutta & chai", img: "https://images.pexels.com/photos/27802554/pexels-photo-27802554/free-photo-of-panoramic-view-of-mountains-from-lion-point.jpeg?auto=compress&cs=tinysrgb&w=600" }
+      ]
+    },
+    pleasant: {
+      title: "🌸 Pleasant & Breezy Bliss",
+      insight: "Golden hour walks, open amphitheaters, sunset points, and outdoor dining. Perfect weather to explore every corner of Pune.",
+      places: [
+        { name: "🌅 Pashan Lake Sunset Point", desc: "Stunning sunset hues, migratory birds, and soft breeze.", mood: "Romantic / Calm", food: "Coconut stalls & fruit chaat", img: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "⛰️ Rajgad Fort Trek", desc: "Pleasant weather enhances the trek, 360° views of valleys.", mood: "Adventurous", food: "Puranpoli & fresh curd at base village", img: "https://tse3.mm.bing.net/th/id/OIP.kx1hBg4IfvZx05n8Y3wXkwHaFj?rs=1&pid=ImgDetMain" },
+        { name: "🌺 Shaniwar Wada Garden & Sound Show", desc: "Evening heritage walk & light show under pleasant sky.", mood: "Heritage & Fun", food: "Bhujka, kulfi from nearby street", img: "https://tse4.mm.bing.net/th/id/OIP.kS7d5HyKw63_CF2_VW5-0gHaE8?rs=1&pid=ImgDetMain" },
+        { name: "🍃 Empress Botanical Garden", desc: "Vast lawns, seasonal blooms, ideal for picnic dates.", mood: "Happy & Chill", food: "Fresh sandwiches & ice-cream", img: "https://images.pexels.com/photos/235734/pexels-photo-235734.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { name: "🎡 FC Road Social & Night Vibes", desc: "Breezy evening street hopping & live music zone.", mood: "Energetic", food: "Street pizza, momos & milkshakes", img: "https://tse4.mm.bing.net/th/id/OIP.v6Thul1NhPpqrLR1o8Rj2gHaE8?rs=1&pid=ImgDetMain" }
+      ]
+    }
+  };
+
+  // DOM elements
+  const weatherOptions = document.querySelectorAll('.weather-option');
+  const placesContainer = document.getElementById('placesContainer');
+  const insightTextSpan = document.getElementById('insightText');
+  const insightBanner = document.getElementById('weatherInsightBanner');
+
+  // function to generate place cards dynamically
+  function renderWeatherPlaces(weatherType) {
+    const data = weatherData[weatherType];
+    if (!data) return;
+
+    // update insight banner
+    insightTextSpan.innerHTML = `<strong>${data.title}</strong> — ${data.insight}`;
+    
+    // generate cards HTML
+    let cardsHTML = '';
+    data.places.forEach(place => {
+      cardsHTML += `
+        <div class="place-card">
+          <div class="place-img" style="background-image: url('${place.img}'); background-size:cover; background-position:center;">
+            <div class="weather-badge">${weatherType === 'sunny' ? '☀️ Sun-friendly' : weatherType === 'rainy' ? '🌧️ Rain-friendly' : '🌸 Pleasant weather'}</div>
+          </div>
+          <div class="place-info">
+            <h3>${place.name}</h3>
+            <div class="mood-match"><i class="fas fa-smile"></i> Best mood: ${place.mood}</div>
+            <p class="place-desc">${place.desc}</p>
+            <div class="food-suggestion"><i class="fas fa-utensil-spoon"></i> 🍽️ ${place.food}</div>
+            <a href="#" class="explore-link">Discover more →</a>
+          </div>
+        </div>
+      `;
+    });
+    placesContainer.innerHTML = cardsHTML;
+  }
+
+  // Set active weather & update
+  function setActiveWeather(weatherKey) {
+    weatherOptions.forEach(opt => {
+      const w = opt.getAttribute('data-weather');
+      if (w === weatherKey) {
+        opt.classList.add('active');
+      } else {
+        opt.classList.remove('active');
+      }
+    });
+    renderWeatherPlaces(weatherKey);
+  }
+
+  // Add event listeners to weather buttons
+  weatherOptions.forEach(opt => {
+    opt.addEventListener('click', () => {
+      const weatherVal = opt.getAttribute('data-weather');
+      setActiveWeather(weatherVal);
+    });
+  });
+
+  // default: load pleasant weather on page load (most balanced)
+  setActiveWeather('pleasant');
+
+  // ----- Existing search utils (same as original pages) ------
+  function showSuggestions() {
+    document.getElementById('suggestionsBox').style.display = 'block';
+  }
+  function filterSuggestions() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let options = document.querySelectorAll('#suggestionsBox div');
+    options.forEach(opt => {
+      let text = opt.innerText.toLowerCase();
+      opt.style.display = text.includes(input) ? 'block' : 'none';
+    });
+  }
+  function selectOption(value) {
+    document.getElementById('searchInput').value = value;
+    document.getElementById('suggestionsBox').style.display = 'none';
+    // if the search is weather-related, we can also auto-show the matching weather tab? For simplicity: open google search as original but also maybe adapt
+    if(value.toLowerCase().includes('sunny')) setActiveWeather('sunny');
+    else if(value.toLowerCase().includes('rainy') || value.toLowerCase().includes('monsoon')) setActiveWeather('rainy');
+    else if(value.toLowerCase().includes('pleasant')) setActiveWeather('pleasant');
+    else window.open('https://www.google.com/search?q=' + encodeURIComponent(value + ' places in Pune weather based'), '_blank');
+  }
+  document.addEventListener('click', function(e) {
+    let searchBox = document.querySelector('.search-box');
+    if (searchBox && !searchBox.contains(e.target)) {
+      let suggestions = document.getElementById('suggestionsBox');
+      if (suggestions) suggestions.style.display = 'none';
+    }
+  });
+  window.addEventListener('load', () => {
+    if(document.getElementById('suggestionsBox')) document.getElementById('suggestionsBox').style.display = 'none';
+  });
+</script>
+</body>
+</html>

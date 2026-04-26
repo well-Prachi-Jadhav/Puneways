@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About Us | Puneways</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter&family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#f5e6d3;
+  color:#3b2314;
+}
+
+/* ===== NAVBAR (EXACT COPY) ===== */
+header {
+  background: #3b2314;
+  border-bottom: 1px solid #e2dcd0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 40px;
+  height: 65px;
+}
+
+.logo-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo { height: 45px; }
+
+.logo-text {
+  font-family: 'Cormorant Garamond';
+  font-size: 26px;
+  color: #d0bb9e;
+}
+
+/* SEARCH */
+.search-box {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.search-wrapper {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.search-wrapper input {
+  width: 350px;
+  padding: 8px 18px 8px 35px;
+  border-radius: 30px;
+  border: 1px solid #d2b48c;
+  background: #f5e6d3;
+}
+
+/* DROPDOWN */
+.suggestions {
+  position: absolute;
+  top: 45px;
+  width: 350px;
+  background: #f5e6d3;
+  border: 1px solid #d2b48c;
+  border-radius: 10px;
+  display: none;
+  z-index: 1000;
+}
+
+.suggestions div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestions div:hover {
+  background: #e6c79c;
+}
+
+/* NAV LINKS */
+.nav-links {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  white-space: nowrap;
+}
+
+.nav-links a {
+  color: #d0bb9e;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* ===== HERO ===== */
+.about-hero{
+  text-align:center;
+  padding:60px 20px;
+}
+
+.about-hero h1{
+  font-size:42px;
+  font-family:'Cormorant Garamond';
+}
+
+/* ===== ABOUT ===== */
+.about-section{
+  display:flex;
+  gap:40px;
+  padding:40px;
+  align-items:center;
+}
+
+.about-img{
+  width:50%;
+  border-radius:20px;
+}
+
+.about-text{
+  width:50%;
+}
+
+/* ===== FEATURES ===== */
+.features{
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  padding:30px;
+}
+
+.card{
+  background:#e6c79c;
+  padding:20px;
+  border-radius:15px;
+  width:200px;
+  text-align:center;
+}
+
+/* ===== COMMENTS ===== */
+.comments-section{
+  padding:40px;
+  text-align:center;
+}
+
+#commentForm{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  max-width:400px;
+  margin:auto;
+}
+
+#commentForm input,
+#commentForm textarea{
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #caa472;
+}
+
+#commentForm button{
+  background:#3b2314;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.comment-box{
+  background:#e6c79c;
+  padding:10px;
+  border-radius:10px;
+  margin:10px auto;
+  max-width:400px;
+}
+
+/* ===== CREDITS ===== */
+.credits{
+  padding:40px;
+  text-align:center;
+}
+
+/* ===== FOOTER (EXACT COPY) ===== */
+.footer {
+  margin-top: 60px;
+  background: url("pune-bg.jpeg") center/cover no-repeat;
+  color: #f5efdf;
+  position: relative;
+}
+
+.footer-overlay {
+  background: rgba(40, 20, 10, 0.85);
+  padding: 50px 40px 20px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #f5efdf;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+}
+/* ABOUT SECTION */
+.about-hero{
+  padding: 80px 8%;
+  background:#f5e6d3;
+}
+
+.about-container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:50px;
+}
+
+/* LEFT */
+.about-text{
+  flex:1;
+}
+
+.about-text h5{
+  letter-spacing:3px;
+  color:#8a6a4f;
+  margin-bottom:10px;
+}
+
+.about-text h1{
+  font-size:50px;
+  line-height:1.2;
+  margin-bottom:20px;
+}
+
+.about-text h1 span{
+  background:#e6c79c;
+  padding:5px 10px;
+  border-radius:10px;
+}
+
+.about-text p{
+  color:#5c4033;
+  margin-bottom:15px;
+  line-height:1.6;
+}
+
+.about-text button{
+  margin-top:20px;
+  padding:12px 25px;
+  border:none;
+  background:#3b2314;
+  color:white;
+  border-radius:30px;
+  cursor:pointer;
+  font-size:16px;
+  transition:0.3s;
+}
+
+.about-text button:hover{
+  background:#5c4033;
+}
+
+/* RIGHT IMAGE */
+.about-image{
+  flex:1;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.about-image img{
+  width:380px;
+  border-radius:50%;
+  position:relative;
+  z-index:2;
+}
+
+/* background shape */
+.shape-bg{
+  position:absolute;
+  width:450px;
+  height:300px;
+  background:#3b2314;
+  border-radius:60% 40% 50% 70%;
+  z-index:1;
+  opacity:0.9;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .about-container{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .about-text h1{
+    font-size:35px;
+  }
+
+  .about-image img{
+    width:280px;
+  }
+
+  .shape-bg{
+    width:400px;
+    height:300px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="navbar">
+
+    <div class="logo-container">
+       <img src="logo.png" class="nav-logo">
+       <span class="logo-text"><b>PUNEWAYS</b></span>
+    </div>
+
+    <div class="search-box">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+
+        <input type="text" id="searchInput"
+          placeholder="Search mood or weather..."
+          onfocus="showSuggestions()"
+          onkeyup="filterSuggestions()">
+      </div>
+
+      <div class="suggestions" id="suggestionsBox">
+        <div onclick="selectOption('romantic')">🌇 Romantic</div>
+        <div onclick="selectOption('chill')">☕ Chill</div>
+        <div onclick="selectOption('rainy')">🌧️ Rainy</div>
+        <div onclick="selectOption('adventure')">⛰️ Adventure</div>
+        <div onclick="selectOption('happy')">🎉 Happy</div>
+        <div onclick="selectOption('peaceful')">🌿 Peaceful</div>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="How_It_Works.html">How It Works</a>
+      <a href="Mood.html">Moods</a>
+      <a href="Weather.html">Weather</a>
+      <a href="about.html">About</a>
+    </div>
+
+  </div>
+</header>
+<!-- ===== HERO ===== -->
+<section class="about-hero">
+
+  <div class="about-container">
+
+    <!-- LEFT TEXT -->
+    <div class="about-text">
+      <h5>ABOUT US</h5>
+
+      <h1>
+        Helping you <span>discover Pune</span> 
+        based on your mood.
+      </h1>
+
+      <p>
+        Puneways is your smart travel companion that helps you explore Pune
+        through moods, weather, and vibes. Whether you're feeling romantic,
+        adventurous, or just want to chill — we guide you to the perfect places.
+      </p>
+
+      <p>
+        Our goal is to make exploring Pune effortless, personalized, and fun.
+        No more confusion — just tell us your mood and we’ll do the rest.
+      </p>
+
+      <button onclick="window.location.href='index.html#searchInput'">
+        Explore Now
+      </button>
+    </div>
+
+
+    <!-- RIGHT IMAGE DESIGN -->
+    <div class="about-image">
+
+      <div class="shape-bg"></div>
+
+      <img src="pune-bg.jpeg" alt="About Pune">
+
+    </div>
+
+  </div>
+
+</section>
+<!-- COMMENTS -->
+<section class="comments-section">
+<h2>Comments</h2>
+<form id="commentForm">
+<input id="name" placeholder="Name">
+<textarea id="comment" placeholder="Comment"></textarea>
+<button>Post</button>
+</form>
+<div id="commentList"></div>
+</section>
+
+<!-- CREDITS -->
+<section class="credits">
+<h2>Credits</h2>
+<p>Images will be credited later.</p>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+
+  <div class="footer-overlay">
+
+    <div class="footer-content">
+
+      <div class="footer-left">
+        <h2>PUNEWAYS</h2>
+        <p>Curated paths of Pune</p>
+
+        <h3>Follow us</h3>
+
+        <div class="socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+
+        <p class="footer-desc">
+          Discover Pune through moods, weather & vibes.
+        </p>
+
+        <p class="footer-email">
+          📧 jadhavprachi552@gmail.com
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <a href="#">Home</a>
+        <a href="#">How It Works</a>
+        <a href="#">Moods</a>
+        <a href="#">Weather</a>
+        <a href="#">Trending Places</a>
+        <a href="#">About Us</a>
+      </div>
+
+      <div class="footer-right">
+        <h3>Explore More</h3>
+        <p>Scan to explore Pune vibes</p>
+
+        <div class="qr-box">
+          <img src="logo.png">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Puneways • Made with ❤️ in Pune</p>
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- JS -->
+<script>
+function showSuggestions(){
+  document.getElementById("suggestionsBox").style.display="block";
+}
+function filterSuggestions(){
+  let input=document.getElementById("searchInput").value.toLowerCase();
+  let items=document.querySelectorAll("#suggestionsBox div");
+  items.forEach(i=>{
+    i.style.display=i.innerText.toLowerCase().includes(input)?"block":"none";
+  });
+}
+function selectOption(v){
+  document.getElementById("searchInput").value=v;
+  document.getElementById("suggestionsBox").style.display="none";
+}
+
+document.getElementById("commentForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  let name=document.getElementById("name").value;
+  let comment=document.getElementById("comment").value;
+
+  let div=document.createElement("div");
+  div.className="comment-box";
+  div.innerHTML="<b>"+name+"</b><p>"+comment+"</p>";
+
+  document.getElementById("commentList").prepend(div);
+});
+</script>
+
+</body>
+</html>
