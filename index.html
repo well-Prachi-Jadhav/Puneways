@@ -548,6 +548,7 @@ header {
   }
 }
 </style>
+<link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
@@ -576,10 +577,11 @@ header {
     <div class="nav-links">
       <a href="index.html" style="color:#b97f44; font-weight:600;">Home</a>
       <a href="How_It_Works.html">How It Works</a>
-      <a href="mood_page.html">Moods</a>
-      <a href="weather_page.html">Weather</a>
+      <a href="Mood.html">Moods</a>
+      <a href="Weather.html">Weather</a>
       <a href="about.html">About</a>
     </div>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
   </div>
 </header>
 
@@ -671,8 +673,8 @@ header {
 <div class="cta-banner">
   <h2>Ready to explore Pune like never before?</h2>
   <div class="cta-buttons">
-    <a href="mood_page.html" class="cta-btn">🎭 Choose your mood</a>
-    <a href="weather_page.html" class="cta-btn cta-btn-outline">🌤️ Check weather picks</a>
+    <a href="Mood.html" class="cta-btn">🎭 Choose your mood</a>
+    <a href="Weather.html" class="cta-btn cta-btn-outline">🌤️ Check weather picks</a>
   </div>
 </div>
 
@@ -698,8 +700,8 @@ header {
         <h3>Quick Links</h3>
         <a href="index.html">Home</a>
         <a href="How_It_Works.html">How It Works</a>
-        <a href="mood_page.html">Moods</a>
-        <a href="weather_page.html">Weather</a>
+        <a href="Mood.html">Moods</a>
+        <a href="Weather.html">Weather</a>
         <a href="#">Trending Places</a>
         <a href="#">About Us</a>
       </div>
@@ -745,9 +747,9 @@ header {
     document.getElementById("searchInput").value = value;
     document.getElementById("suggestionsBox").style.display = "none";
     if(value.includes("romantic") || value.includes("chill") || value.includes("adventure") || value.includes("peaceful") || value.includes("happy")) {
-      window.location.href = "mood_page.html";
+      window.location.href = "Mood.html";
     } else if(value.includes("rainy") || value.includes("sunny") || value.includes("weather")) {
-      window.location.href = "weather_page.html";
+      window.location.href = "Weather.html";
     } else {
       window.open("https://www.google.com/search?q=" + encodeURIComponent(value + " places in Pune"), "_blank");
     }
@@ -764,12 +766,13 @@ header {
     if(moodSection) {
       moodSection.scrollIntoView({ behavior: "smooth", block: "start" });
     } else {
-      window.location.href = "mood_page.html";
+      window.location.href = "Mood.html";
     }
   }
   window.addEventListener('load', () => {
     if(document.getElementById("suggestionsBox")) document.getElementById("suggestionsBox").style.display = "none";
   });
 </script>
+<script src="theme.js"></script>
 </body>
 </html>

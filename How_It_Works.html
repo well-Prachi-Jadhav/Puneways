@@ -276,6 +276,81 @@
       margin-bottom: 6px;
     }
 
+    /* Behind the Scenes Cards */
+    .behind-scenes-card {
+      flex: 1;
+      min-width: 250px;
+      background: #fefaf3;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .behind-scenes-card i {
+      font-size: 38px;
+      color: #b97f44;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+
+    .behind-scenes-card h3 {
+      font-family: 'Cormorant Garamond';
+      font-size: 24px;
+      color: #3b2314;
+    }
+
+    .behind-scenes-card p {
+      margin-top: 10px;
+      color: #4f4332;
+      line-height: 1.5;
+    }
+
+    /* From Confusion to Clarity Section */
+    .clarity-section {
+      background: #e9dfce;
+      margin: 30px 30px 50px;
+      border-radius: 60px;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .clarity-section h2 {
+      font-family: 'Cormorant Garamond';
+      font-size: 34px;
+      color: #3b2314;
+      margin: 12px 0 18px;
+    }
+
+    .clarity-section p {
+      max-width: 750px;
+      margin: 0 auto 20px;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #4f4332;
+    }
+
+    .clarity-tags {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .clarity-tags span {
+      background: #f5efdf;
+      padding: 8px 22px;
+      border-radius: 40px;
+      color: #3b2314;
+      font-size: 14px;
+    }
+
+    .clarity-section i {
+      font-size: 32px;
+      color: #8b6946;
+      opacity: 0.5;
+    }
+
     /* FOOTER identical styling (same as homepage) */
     .footer {
       margin-top: 60px;
@@ -377,6 +452,7 @@
       }
     }
   </style>
+<link rel="stylesheet" href="theme.css">
 </head>
 <body>
 
@@ -412,6 +488,7 @@
       <a href="Weather.html">Weather</a>
       <a href="about.html">About</a>
     </div>
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
   </div>
 </header>
 
@@ -486,34 +563,34 @@
   <div class="section-line"></div>
   
   <div style="display: flex; flex-wrap: wrap; gap: 35px; justify-content: space-between;">
-    <div style="flex:1; min-width: 250px; background: #fefaf3; border-radius: 28px; padding: 28px; box-shadow: 0 6px 14px rgba(0,0,0,0.03);">
-      <i class="fas fa-brain" style="font-size: 38px; color:#b97f44; margin-bottom: 15px; display: inline-block;"></i>
-      <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px;">Smart Curation</h3>
-      <p style="margin-top: 10px;">Our team mapped 100+ Pune locations across 5 primary moods. Each place is tagged with ideal weather conditions — sunny, rainy, or overcast — ensuring you always land at the right spot.</p>
+    <div class="behind-scenes-card">
+      <i class="fas fa-brain"></i>
+      <h3>Smart Curation</h3>
+      <p>Our team mapped 100+ Pune locations across 5 primary moods. Each place is tagged with ideal weather conditions — sunny, rainy, or overcast — ensuring you always land at the right spot.</p>
     </div>
-    <div style="flex:1; min-width: 250px; background: #fefaf3; border-radius: 28px; padding: 28px; box-shadow: 0 6px 14px rgba(0,0,0,0.03);">
-      <i class="fas fa-utensil-spoon" style="font-size: 38px; color:#b97f44; margin-bottom: 15px;"></i>
-      <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px;">Foodie & Chill Layer</h3>
+    <div class="behind-scenes-card">
+      <i class="fas fa-utensil-spoon"></i>
+      <h3>Foodie & Chill Layer</h3>
       <p>Every mood page integrates nearby food streets, iconic cafes (like Vohuman, Goodluck) and chill zones — you don’t have to search twice.</p>
     </div>
-    <div style="flex:1; min-width: 250px; background: #fefaf3; border-radius: 28px; padding: 28px; box-shadow: 0 6px 14px rgba(0,0,0,0.03);">
-      <i class="fas fa-cloud-rain" style="font-size: 38px; color:#b97f44; margin-bottom: 15px;"></i>
-      <h3 style="font-family: 'Cormorant Garamond'; font-size: 24px;">Weather Adaptation</h3>
+    <div class="behind-scenes-card">
+      <i class="fas fa-cloud-rain"></i>
+      <h3>Weather Adaptation</h3>
       <p>Rainy day? We’ll suggest cozy indoor spots & heritage sites. Scorching sun? Lakeside & shaded gardens. Pleasant evening? Rooftop & open amphitheaters.</p>
     </div>
   </div>
 </section>
 
 <!-- WHY IT WORKS + FEEDBACK SECTION (reflects objectives) -->
-<div style="background: #e9dfce; margin: 30px 30px 50px; border-radius: 60px; padding: 40px 30px; text-align: center;">
-  <i class="fas fa-quote-left" style="font-size: 32px; color:#8b6946; opacity: 0.5;"></i>
-  <h2 style="font-family: 'Cormorant Garamond'; font-size: 34px; color:#3b2314; margin: 12px 0 18px;">From Confusion to Clarity</h2>
-  <p style="max-width: 750px; margin: 0 auto 20px; font-size: 18px; line-height: 1.5;">No more decision fatigue. Puneways reduces planning time by 70% and helps you explore Pune like a local — based on your real-time emotions and Pune's character.</p>
-  <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 25px;">
-    <span style="background: #f5efdf; padding: 8px 22px; border-radius: 40px;">🌿 Calm Mode</span>
-    <span style="background: #f5efdf; padding: 8px 22px; border-radius: 40px;">⛰️ Adventure Mode</span>
-    <span style="background: #f5efdf; padding: 8px 22px; border-radius: 40px;">❤️ Romantic Mode</span>
-    <span style="background: #f5efdf; padding: 8px 22px; border-radius: 40px;">🍽️ Foodie Mode</span>
+<div class="clarity-section">
+  <i class="fas fa-quote-left"></i>
+  <h2>From Confusion to Clarity</h2>
+  <p>No more decision fatigue. Puneways reduces planning time by 70% and helps you explore Pune like a local — based on your real-time emotions and Pune's character.</p>
+  <div class="clarity-tags">
+    <span>🌿 Calm Mode</span>
+    <span>⛰️ Adventure Mode</span>
+    <span>❤️ Romantic Mode</span>
+    <span>🍽️ Foodie Mode</span>
   </div>
 </div>
 
@@ -600,6 +677,7 @@
     if (suggestionsBox) suggestionsBox.style.display = "none";
   });
 </script>
+<script src="theme.js"></script>
 
 <!-- Note: keeps same aesthetic. BG images reference pune-bg.jpeg and logo.png, 
      same as original – no broken references. All interactive search works -->
